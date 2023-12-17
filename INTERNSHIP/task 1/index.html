@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+    <title>My Recipe Blog</title>
+</head>
+<body>
+    <header>
+        <h1>My Recipe Blog</h1>
+    </header>
+    
+    <nav>
+        <ul>
+            <li><a href="#" onclick="showRecipes()">Recipes</a></li>
+            <li><a href="#" onclick="showAddRecipeForm()">Add Recipe</a></li>
+        </ul>
+    </nav>
+    
+    <section id="recipes">
+        <!-- Recipe posts will be dynamically added here -->
+    </section>
+
+    <section id="addRecipeForm" style="display:none;">
+        <h2>Add New Recipe</h2>
+        <form id="recipeForm">
+            <label for="recipeTitle">Title:</label>
+            <input type="text" id="recipeTitle" required>
+
+            <label for="recipeIngredients">Ingredients:</label>
+            <textarea id="recipeIngredients" rows="4" required></textarea>
+
+            <label for="recipeInstructions">Instructions:</label>
+            <textarea id="recipeInstructions" rows="6" required></textarea>
+
+            <button type="button" onclick="addRecipe()">Add Recipe</button>
+        </form>
+    </section>
+
+    <script src="script.js">
+        function showRecipes() {
+    document.getElementById("recipes").style.display = "block";
+    document.getElementById("addRecipeForm").style.display = "none";
+}
+
+function showAddRecipeForm() {
+    document.getElementById("recipes").style.display = "none";
+    document.getElementById("addRecipeForm").style.display = "block";
+}
+
+function addRecipe() {
+    const title = document.getElementById("recipeTitle").value;
+    const ingredients = document.getElementById("recipeIngredients").value;
+    const instructions = document.getElementById("recipeInstructions").value;
+
+    // Validate if fields are not empty
+    if (title.trim() === "" || ingredients.trim() === "" || instructions.trim() === "") {
+        alert("Please fill in all fields");
+        return;
+    }
+
+    // Create a new recipe post
+    const recipePost = document.createElement("div");
+    recipePost.innerHTML = `
+        <h2>${title}</h2>
+        <p><strong>Ingredients:</strong> ${ingredients}</p>
+        <p><strong>Instructions:</strong> ${instructions}</p>
+    `;
+
+    // Append the new recipe post to the recipes section
+    document.getElementById("recipes").appendChild(recipePost);
+
+    // Clear the form fields
+    document.getElementById("recipeForm").reset();
+
+    // Switch back to the recipes view
+    showRecipes();
+}
+
+    </script>
+</body>
+</html>
